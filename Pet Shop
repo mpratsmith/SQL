@@ -1,0 +1,16 @@
+--Create a new pet shop database
+CREATE TABLE pet_shop(
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    quantity INTEGER,
+    type TEXT,
+    price INTEGER);
+
+INSERT INTO pet_shop VALUES (
+1, "Parrot", 5, "Bird", 250),
+(2, "Calico", 3, "Cat", 900),
+(3,"Rottweiler", 9, "Dog", 850);
+
+--Display items ordered by price
+SELECT * FROM pet_shop ORDER BY (price);
+SELECT SUM(quantity) FROM pet_shop;
