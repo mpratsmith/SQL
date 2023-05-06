@@ -1,0 +1,91 @@
+/*Khan Academy Challenge*/
+
+/*Guidelines:. Contains at least two tables with at least 15 rows total. One of the tables contains a column that relates to the primary key of another table.
+Has at least one query that does a JOIN.*/
+
+/* This project shows usage of Joins and LEFT Joins */
+
+CREATE TABLE author (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+fullname TEXT);
+
+INSERT INTO author (fullname) VALUES ("J. K. Rowling");
+INSERT INTO author (fullname) VALUES ("Stephanie Meyer");
+INSERT INTO author (fullname) VALUES ("Suzanne Collins");
+INSERT INTO author (fullname) VALUES ("C. S. Lewis");
+
+CREATE TABLE books (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+title TEXT,
+author_id INTEGER,
+series_number TEXT,
+sequel INTEGER);
+
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Harry Potter and the Sorcerer's Stone", 1, 1, 2);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Harry Potter and the Chamber of Secrets", 1, 2, 3);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Harry Potter and the Prisoner of Azkaban", 1, 3, 4);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Harry Potter and the Goblet of Fire", 1, 4, 5);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Harry Potter and the Order of the Phoenix", 1, 5, 6);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Harry Potter and the Half-Blood Prince", 1, 6, 7);
+INSERT INTO books (title, author_id, series_number) VALUES ("Harry Potter and the Deathly Hallows", 1, 7);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Twilight", 2, 1, 2);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("New Moon", 2, 2, 3);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Eclipse", 2, 3, 4);
+INSERT INTO books (title, author_id, series_number) VALUES ("Breaking Dawn", 2, 4);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("The Hunger Games", 3, 1, 2);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Catching Fire", 3, 2, 3);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Mockingjay", 3, 3, 4);
+INSERT INTO books (title, author_id, series_number) VALUES ("The Ballad of Songbirds and Snakes", 3, 4);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("The Lion, the Witch and the Wardrobe", 4, 1, 2);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("Prince Caspian", 4, 2, 3);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("The Voyage of the Dawn Treader", 4, 3, 4);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("The Silver Chair", 4, 4, 5);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("The Horse and His Boy", 4, 5, 6);
+INSERT INTO books (title, author_id, series_number, sequel) VALUES ("The Magician's Nephew", 4, 6, 7);
+INSERT INTO books (title, author_id, series_number) VALUES ("The Last Battle", 4, 7);
+
+CREATE TABLE movies (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+title TEXT,
+book_id INTEGER,
+sequel_id TEXT);
+
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Sorcerer's Stone", 1, 2);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Chambers of Secrets", 2, 3);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Prisoner of Azkaban", 3, 4);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Goblet of Fire", 4, 5);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Order of the Phoenix", 5, 6);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Half-Blood Prince", 6, 7);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Harry Potter and the Deathly Hallows-Part 1", 7, 8);
+INSERT INTO movies (title, book_id) VALUES ("Harry Potter and the Deathly Hallows-Part 2", 7);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("Twilight", 8, 10);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Twilight Saga: New Moon", 9, 11);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Twilight Saga: Eclipse", 10, 12);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Twilight Saga: Breaking Dawn- Part 1", 11, 13);
+INSERT INTO movies (title, book_id) VALUES ("The Twilight Saga: Breaking Dawn- Part 2", 11);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Hunger Games", 12, 15);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Hunger Games:Catching Fire", 13, 16);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Hunger Games: Mockingjay- Part 1", 14, 17);
+INSERT INTO movies (title, book_id) VALUES ("The Hunger Games: Mockingjay- Part 2", 14);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Chronicles of Narnia: The Lion, the Witch and the Wardrobe", 16, 19);
+INSERT INTO movies (title, book_id, sequel_id) VALUES ("The Chronicles of Narnia: Prince Caspian", 17, 20);
+INSERT INTO movies (title, book_id) VALUES ("The Chronicles of Narnia: The Voyage of the Dawn Treader", 18);
+
+/* List of books with their authors*/
+SELECT books.title, author.fullname FROM books
+JOIN author
+ON books.author_id = author.id;
+
+/*Which books were made into movies? What is the book name*/
+SELECT movies.title AS movie, books.title AS book FROM movies
+JOIN books
+ON movies.book_id = books.id;
+
+/*List of books with or without movies*/
+SELECT movies.title AS movie, books.title AS book FROM books
+LEFT JOIN movies
+ON movies.book_id = books.id;
+
+/*List of movies with their sequel*/
+SELECT movies.title AS movie, sequel.title AS sequel FROM movies
+LEFT JOIN movies sequel
