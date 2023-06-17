@@ -1,3 +1,7 @@
+--Project shows the revenue based on data from a fictitious company.
+
+--Project was done with data and questions that were provided. 
+
 --How many orders were placed in January?
 SELECT COUNT(*) FROM JanSales
 WHERE length(orderID) = 6
